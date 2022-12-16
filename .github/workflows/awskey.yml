@@ -20,7 +20,7 @@ jobs:
       - name: Vault revoke AWS Keys
         run: |
           sudo apt-get install -y jq
-          lease_id=`cat aws_data.json | jq -r '.lease_id' | awk -F '/' '{print $4}'`
+          export lease_id=`cat aws_data.json | jq -r '.lease_id' | awk -F '/' '{print $4}'`
           curl \
           --header "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
           --data '{"lease_id": $lease_id}' \
