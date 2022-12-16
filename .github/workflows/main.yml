@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
-              secret/data/client-kv2/dev/dns/13/subdomain aaaa | AWS_KEYS;
+              secret/client-kv2/dev/dns/13/subdomain aaaa | AWS_KEYS;
               
       - name: print output
         run: |
