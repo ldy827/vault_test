@@ -29,6 +29,7 @@ jobs:
         run: |
           echo ${{ steps.aws_store.outputs.ACCESS_KEY }}
           echo ${{ steps.aws_store.outputs.LEASE_ID }}
+          sleep 10
           
       - name: Vault revoke AWS Keys
         run: |
