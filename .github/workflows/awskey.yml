@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "ACCESS_KEY=`cat aws_data.json | jq -r '.data.access_key'`" >> $GITHUB_OUTPUT
           echo "SECRET_KEY=`cat aws_data.json | jq -r '.data.secret_key'`" >> $GITHUB_OUTPUT
-          echo "LEASE_ID=`cat aws_data.json | jq -r '.lease_id' | awk -F '/' '{print $4}'`" >> $GITHUB_ENV
+          echo "LEASE_ID=`cat aws_data.json | jq -r '.lease_id'`" >> $GITHUB_ENV
           
       - name: Show AWS data
         id: aws_data
