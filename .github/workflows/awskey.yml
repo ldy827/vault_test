@@ -17,6 +17,19 @@ jobs:
           --header "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
           ${{ env.VAULT_ADDR }}/v1/aws-terraform-dev/creds/local-execute
           
+      - name: Store AWS data
+        id: aws_store
+        run: |
+          echo "ACCESS_KEY=`cat aws_data.json | jq -r '.data.access_key'`" >> $GITHUB_OUTPUT
+          echo "SECRET_KEY=`cat aws_data.json | jq -r '.data.secret_key'`" >> $GITHUB_OUTPUT
+          echo "LEASE_ID=`cat aws_data.json | jq -r '.lease_id' | awk -F '/' '{print $4}'`" >> $GITHUB_OUTPUT
+          
+      - name: Show AWS data
+        id: aws_data
+        run: |
+          echo ${{ steps.aws_store.outputs.ACCESS_KEY }}
+          echo ${{ steps.aws_store.outputs.LEASE_ID }}
+          
       - name: Vault revoke AWS Keys
         run: |
           cat <<EOH > payload.json
