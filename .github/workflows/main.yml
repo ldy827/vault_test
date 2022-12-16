@@ -15,9 +15,8 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
-              secret/data/ci/aws-terraform-dev accessKey | AWS_ACCESS_KEY_ID ;
-              secret/data/ci/aws-terraform-dev secretKey | AWS_SECRET_ACCESS_KEY ;
-              secret/data/ci npm_token
+              /aws-terraform-dev accessKey | AWS_ACCESS_KEY_ID ;
+              /aws-terraform-dev secretKey | AWS_SECRET_ACCESS_KEY ;
               
       - name: print output
         run: |
