@@ -7,8 +7,8 @@ jobs:
     runs-on:
       ubuntu-latest
     steps:
-      - name: Import Secrets
-        id: vault
+      - name: Get Secrets
+        id: aws_keys
         uses: hashicorp/vault-action@v2
         with:
           url: http://mgmt.ndne.co.kr:8200
@@ -16,8 +16,25 @@ jobs:
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
             client-kv2/data/dev/dns/13/subdomain aaaa | SAMPLE;
-            aws-terraform-dev/creds/local-execute access_key | AWS_KEYS;
+            aws-terraform-dev/creds/local-execute access_key | AWS_ACCESS_KEY_ID;
+            aws-terraform-dev/creds/local-execute secret_key | AWS_SECRET_ACCESS_KEY;
+            aws-terraform-dev/creds/local-execute lease_id | LEAS_ID;
               
       - name: print output
         run: |
-          echo ${{ steps.vault.outputs.AWS_KEYS }}
+          echo "Access key: ${{ steps.aws_keys.outputs.AWS_ACCESS_KEY_ID }}"
+          echo "Secret key: ${{ steps.aws_keys.outputs.AWS_SECRET_ACCESS_KEY }}"
+
+      - name: Release AWS Secrets
+        id: release_key
+        uses: hashicorp/vault-action@v2
+        with:
+          url: http://mgmt.ndne.co.kr:8200
+          token: ${{ secrets.VAULT_TOKEN }}
+#           caCertificate: ${{ secrets.VAULT_CA_CERT }}
+          secrets: sys/leases/revoke
+          extraHeaders: |
+            lease_id: ${{ steps.aws_keys.outputs.LEASE_ID }}
+
+            
+        
