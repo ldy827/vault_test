@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
-              aws-terraform-dev/roles/local-execute accesskey;
+              secret/data/client-kv2/dev/dns/13/subdomain aaa accesskey;
               
       - name: print output
         run: |
