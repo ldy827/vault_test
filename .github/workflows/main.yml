@@ -15,8 +15,8 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
-              /aws-terraform-dev local-execute | AWS_KEYS ;
+              secret/data/aws-terraform-dev local-execute | AWS_KEYS ;
               
       - name: print output
         run: |
-          echo ${{ steps.vault.outputs.AWS_ACCESS_KEY_ID }}
+          echo ${{ steps.vault.outputs.AWS_KEYS }}
