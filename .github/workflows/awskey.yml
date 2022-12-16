@@ -23,5 +23,5 @@ jobs:
           lease_id=`cat aws_data.json | jq -r '.lease_id'`
           curl \
           --header "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
-          --data '{"lease_id": $lease_id}'
+          --data '{"lease_id": $lease_id}' \
           ${{ env.VAULT_ADDR }}/v1/sys/leases/revoke
