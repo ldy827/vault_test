@@ -16,7 +16,7 @@ jobs:
 #           caCertificate: ${{ secrets.VAULT_CA_CERT }}
           secrets: |
             client-kv2/data/dev/dns/13/subdomain aaaa | SAMPLE;
-            /aws-terraform-dev/roles/local-execute | AWS_KEYS;
+            /aws-terraform-dev/creds/local-execute | AWS_KEYS;
               
       - name: print output
         run: |
